@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Crew - Trading</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle, #0f0c29, #302b63, #24243e);
+      color: white;
+      overflow-x: hidden;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      backdrop-filter: blur(12px);
+    }
+
+    .section h2 {
+      text-align: center;
+      color: #00c6ff;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      font-size: 1em;
+      color: white;
+      outline: none;
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .input-group input::placeholder,
+    .input-group select {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+    }
+
+    select {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: white;
+    }
+
+    option {
+      background-color: #1e1e2f;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .input-group.invalid input,
+    .input-group.invalid select {
+      border: 1px solid red;
+    }
+
+    .input-group.invalid::after {
+      content: "!";
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      color: red;
+      font-weight: bold;
+    }
+
+    #product-image {
+      display: block;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(0, 255, 255, 0.4);
+      padding: 12px;
+      text-align: center;
+      border-radius: 15px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #product-image:hover {
+      background: rgba(0, 255, 255, 0.1);
+      color: white;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 20px;
+      padding: 12px;
+      width: 100%;
+      font-size: 1.1em;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+      transform: scale(1.03);
+    }
+
+    .search-bar {
+      max-width: 600px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 20px;
+      font-size: 1em;
+      color: white;
+      outline: none;
+    }
+
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .profile-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://www.w3schools.com/howto/img_avatar.png');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      border: 2px solid rgba(0, 255, 255, 0.4);
+    }
+
+    .profile-menu {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      padding: 10px;
+      display: none;
+    }
+
+    .profile-menu a {
+      display: block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-menu a:hover {
+      color: #00c6ff;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 4%;
+    }
+
+    .half-input {
+      width: 48%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-icon" onclick="toggleProfileMenu()"></div>
+  <div class="profile-menu" id="profileMenu">
+    <a href="C:\Users\admin\OneDrive\Desktop\Yogi Student Crew\org proj\new-profile.html">Profile</a>
+    <a href="C:\Users\admin\OneDrive\Desktop\Yogi Student Crew\org proj\new-history.html">History</a>
+    <a href="C:\Users\admin\OneDrive\Desktop\Yogi Student Crew\org proj\new-settings.html">Settings</a>
+    <a href="C:\Users\admin\OneDrive\Desktop\Yogi Student Crew\org proj\new-login.html">Logout</a>
+  </div>
+
+  <h1>STUDENT CREW</h1>
+
+  <div class="search-bar">
+    <input type="text" id="search-products" placeholder="Search for products...">
+  </div>
+
+  <div class="section">
+    <h2>Want to sell your used products?</h2>
+
+    <div class="input-group">
+      <input type="text" id="product-name" placeholder="Product name">
+    </div>
+
+    <div class="input-group">
+      <select id="category" onchange="toggleOtherCategory()">
+        <option value="">Select category</option>
+        <option value="stationery">Stationery</option>
+        <option value="essentials">Essentials</option>
+        <option value="others">Others</option>
+      </select>
+    </div>
+
+    <div class="input-group hidden" id="other-category-group">
+      <input type="text" id="other-category" placeholder="Product category">
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="seller-price" placeholder="Enter seller price (₹)">
+    </div>
+
+    <div class="row">
+      <div class="input-group half-input">
+        <input type="text" id="college-block" placeholder="College Block">
+      </div>
+      <div class="input-group half-input">
+        <input type="text" id="room-number" placeholder="Room Number">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="imageUpload" id="product-image">Click here to upload a product image</label>
+      <input type="file" id="imageUpload" accept="image/*" class="hidden" />
+    </div>
+
+    <button onclick="submitForm()">Sell Product</button>
+  </div>
+
+  <script>
+    function toggleOtherCategory() {
+      const category = document.getElementById("category").value;
+      const otherGroup = document.getElementById("other-category-group");
+      if (category === "others") {
+        otherGroup.classList.remove("hidden");
+      } else {
+        otherGroup.classList.add("hidden");
+      }
+    }
+
+    function submitForm() {
+      const fields = [
+        { id: "product-name" },
+        { id: "category" },
+        { id: "seller-price" },
+        { id: "college-block" },
+        { id: "room-number" }
+      ];
+
+      if (document.getElementById("category").value === "others") {
+        fields.push({ id: "other-category" });
+      }
+
+      let isValid = true;
+
+      fields.forEach(field => {
+        const element = document.getElementById(field.id);
+        const group = element.parentElement;
+        if (!element.value.trim()) {
+          group.classList.add("invalid");
+          isValid = false;
+        } else {
+          group.classList.remove("invalid");
+        }
+      });
+
+      if (isValid) {
+        alert("Product listed successfully!");
+        // Submit logic here
+      }
+    }
+
+    function toggleProfileMenu() {
+      const menu = document.getElementById("profileMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Close the menu if clicked outside
+    window.addEventListener('click', function(event) {
+      const menu = document.getElementById("profileMenu");
+      const icon = document.querySelector('.profile-icon');
+
+      if (!icon.contains(event.target) && !menu.contains(event.target)) {
+        menu.style.display = 'none';
+      }
+    });
+
+    document.getElementById("imageUpload").addEventListener("change", function () {
+      const label = document.getElementById("product-image"); if (this.files && this.files[0]) { label.textContent = this.files[0].name; } }); </script>
+
+</body> </html>

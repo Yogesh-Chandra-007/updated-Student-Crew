@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History - Student Crew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #0f0c29, #302b63, #24243e);
+            color: white;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .history-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            padding: 30px;
+            max-width: 800px;
+            margin: auto;
+            backdrop-filter: blur(12px);
+        }
+
+        .history-container h2 {
+            text-align: center;
+            color: #00c6ff;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: rgba(0, 255, 255, 0.1);
+            color: white;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .no-history {
+            text-align: center;
+            color: #00c6ff;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>History - Student Crew</h1>
+
+    <div class="history-container">
+        <h2>Your Activity History</h2>
+
+        <!-- Product History Table -->
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price (₹)</th>
+                    <th>Date</th>
+                    <th>Transaction Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+
+        <div id="noHistoryMessage" class="no-history hidden">
+            No history available.
+        </div>
+    </div>
+
+    <script>
+        // Example data, replace this with actual data from a database or localStorage
+        const historyData = [
+            {
+                productName: "Used Textbook",
+                category: "Stationery",
+                price: 150,
+                date: "2025-04-01",
+                transactionType: "Bought"
+            },
+            {
+                productName: "Drafting Set",
+                category: "Essentials",
+                price: 500,
+                date: "2025-03-15",
+                transactionType: "Sold"
+            },
+            {
+                productName: "Room Heater",
+                category: "Others",
+                price: 1200,
+                date: "2025-02-20",
+                transactionType: "Bought"
+            }
+        ];
+
+        // Function to populate the history table with data
+        function populateHistoryTable(data) {
+            const tableBody = document.getElementById("historyTable").getElementsByTagName("tbody")[0];
+            const noHistoryMessage = document.getElementById("noHistoryMessage");
+
+            // If no data is available, show the 'No history available' message
+            if (data.length === 0) {
+                noHistoryMessage.classList.remove("hidden");
+            } else {
+                noHistoryMessage.classList.add("hidden");
+                data.forEach(item => {
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.productName}</td>
+                        <td>${item.category}</td>
+                        <td>₹${item.price}</td>
+                        <td>${item.date}</td>
+                        <td>${item.transactionType}</td>
+                    `;
+                });
+            }
+        }
+
+        // Call function to populate table on page load
+        window.onload = function () {
+            populateHistoryTable(historyData);
+        };
+    </script>
+
+</body>
+</html>
